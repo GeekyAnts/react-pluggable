@@ -19,8 +19,8 @@ export class PluginStore {
     this.functionArray.set(key, fn);
   }
 
-  executeFunction(key: string, ...args: any) {
+  executeFunction(key: string, ...args: any): any {
     let fn = this.functionArray.get(key);
-    fn(...args);
+    return fn(...args);
   }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { IPlugin } from '../../.';
 
 class ClickMePlugin implements IPlugin {
-  private pluginStore;
+  public pluginStore;
 
   init(pluginStore) {
     console.log('Inside init');
