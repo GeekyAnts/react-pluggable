@@ -1,3 +1,5 @@
+// @ts-ignore
+import React from 'react';
 import { IPlugin } from '../../.';
 
 class ClickMePlugin implements IPlugin {
@@ -8,11 +10,15 @@ class ClickMePlugin implements IPlugin {
     this.pluginStore = pluginStore;
   }
   activate() {
-    console.log('Inside activate', this.pluginStore);
-
     this.pluginStore.addFunction('sendAlert', () => {
       alert('Testing');
     });
+
+    this.pluginStore.executeFunction(
+      'RendererPlugin.add',
+      'top',
+      <h1>asjdf</h1>
+    );
   }
   deactivate() {
     //
