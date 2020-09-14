@@ -10,9 +10,6 @@ pluginStore.install('RendererPlugin', new RendererPlugin());
 pluginStore.install('ClickMePlugin', new ClickMePlugin());
 
 const App = () => {
-  pluginStore.addFunction('test', (a, b) => {
-    console.log('working 1', a, b);
-  });
   return (
     <PluginProvider pluginStore={pluginStore}>
       <Test></Test>

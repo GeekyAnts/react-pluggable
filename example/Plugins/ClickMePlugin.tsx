@@ -6,7 +6,6 @@ class ClickMePlugin implements IPlugin {
   public pluginStore;
 
   init(pluginStore) {
-    console.log('Inside init');
     this.pluginStore = pluginStore;
   }
 
@@ -20,7 +19,7 @@ class ClickMePlugin implements IPlugin {
     ));
   }
   deactivate() {
-    //
+    this.pluginStore.removeFunction('sendAlert');
   }
 }
 
