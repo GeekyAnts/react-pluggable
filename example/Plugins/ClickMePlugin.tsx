@@ -9,16 +9,15 @@ class ClickMePlugin implements IPlugin {
     console.log('Inside init');
     this.pluginStore = pluginStore;
   }
+
   activate() {
     this.pluginStore.addFunction('sendAlert', () => {
       alert('Testing');
     });
 
-    this.pluginStore.executeFunction(
-      'RendererPlugin.add',
-      'top',
-      <h1>asjdf</h1>
-    );
+    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+      <h1>asdjkdas</h1>
+    ));
   }
   deactivate() {
     //

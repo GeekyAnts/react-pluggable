@@ -2,15 +2,15 @@ import { IPlugin } from './interfaces/IPlugin';
 
 export class PluginStore {
   private functionArray: Map<string, any>;
-  private pluginMap: Array<IPlugin>;
+  private pluginMap: Map<string, IPlugin>;
 
   constructor() {
     this.functionArray = new Map<string, any>();
-    this.pluginMap = [];
+    this.pluginMap = new Map<string, IPlugin>();
   }
 
-  install(plugin: IPlugin) {
-    this.pluginMap.push(plugin);
+  install(key: string, plugin: IPlugin) {
+    this.pluginMap.set(key, plugin);
     plugin.init(this);
     plugin.activate();
   }
