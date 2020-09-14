@@ -5,6 +5,9 @@ const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
   console.log(pluginStore);
   pluginStore.executeFunction('test', 1, 2);
+  let Renderer = pluginStore.executeFunction(
+    'RendererPlugin.getRendererComponent'
+  );
   return (
     <>
       <h1>Working</h1>{' '}
@@ -15,6 +18,7 @@ const Test = (props: any) => {
       >
         Send Alert
       </button>
+      <Renderer placement={'top'} />
     </>
   );
 };
