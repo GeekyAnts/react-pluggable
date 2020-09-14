@@ -47,6 +47,10 @@ export class RendererPlugin implements IPlugin {
   }
 
   deactivate() {
-    //
+    this.pluginStore.removeFunction('RendererPlugin.add');
+
+    this.pluginStore.removeFunction('RendererPlugin.getComponentsInPosition');
+
+    this.pluginStore.removeFunction('RendererPlugin.getRendererComponent');
   }
 }

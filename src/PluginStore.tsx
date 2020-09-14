@@ -21,6 +21,22 @@ export class PluginStore {
 
   executeFunction(key: string, ...args: any): any {
     let fn = this.functionArray.get(key);
-    return fn(...args);
+    if (fn) {
+      return fn(...args);
+    }
+    console.error('No function added for the key ' + key + '.');
+  }
+
+  removeFunction(key: string): any {
+    this.functionArray.delete(key);
+  }
+
+  uninstall(key: string) {
+    let plugin = this.pluginMap.get(key);
+
+    if (plugin) {
+      plugin.deactivate();
+      this.pluginMap.delete(key);
+    }
   }
 }
