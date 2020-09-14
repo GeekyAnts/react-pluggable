@@ -6,8 +6,8 @@ import ClickMePlugin from './Plugins/ClickMePlugin';
 import Test from './components/Test';
 
 const pluginStore = createPluginStore();
-pluginStore.install(new RendererPlugin());
-pluginStore.install(new ClickMePlugin());
+pluginStore.install('RendererPlugin', new RendererPlugin());
+pluginStore.install('ClickMePlugin', new ClickMePlugin());
 
 const App = () => {
   pluginStore.addFunction('test', (a, b) => {
