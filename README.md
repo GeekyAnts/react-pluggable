@@ -78,7 +78,7 @@ export default ClickMePlugin;
 
 ```tsx
 import * as React from 'react';
-import { usePluginStore } from '../../.';
+import { usePluginStore } from 'react-pluggable';
 
 const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
