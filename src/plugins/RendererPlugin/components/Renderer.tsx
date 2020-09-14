@@ -12,10 +12,10 @@ export const Renderer: React.SFC<{
   );
 
   return (
-    <React.Fragment>
-      {components.map((component: any) => (
-        <>{component}</>
+    <>
+      {components.map((Component: any) => (
+        <Component />
       ))}
-    </React.Fragment>
+    </>
   );
 };

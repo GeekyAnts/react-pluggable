@@ -10,20 +10,14 @@ class ClickMePlugin implements IPlugin {
     this.pluginStore = pluginStore;
   }
 
-  getReactComponent(): React.Component {
-    return <h1>asdjkdas</h1>;
-  }
-
   activate() {
     this.pluginStore.addFunction('sendAlert', () => {
       alert('Testing');
     });
 
-    this.pluginStore.executeFunction(
-      'RendererPlugin.add',
-      'top',
-      this.getReactComponent()
-    );
+    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+      <h1>asdjkdas</h1>
+    ));
   }
   deactivate() {
     //
