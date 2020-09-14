@@ -5,13 +5,13 @@ import { createPluginStore, PluginProvider, RendererPlugin } from '../.';
 import ClickMePlugin from './Plugins/ClickMePlugin';
 import Test from './components/Test';
 
-const App = () => {
-  const pluginStore = createPluginStore();
-  pluginStore.install(new RendererPlugin());
-  pluginStore.install(new ClickMePlugin());
+const pluginStore = createPluginStore();
+pluginStore.install(new RendererPlugin());
+pluginStore.install(new ClickMePlugin());
 
+const App = () => {
   pluginStore.addFunction('test', (a, b) => {
-    console.log('working', a, b);
+    console.log('working 1', a, b);
   });
   return (
     <PluginProvider pluginStore={pluginStore}>
