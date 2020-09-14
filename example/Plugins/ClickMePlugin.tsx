@@ -9,6 +9,11 @@ class ClickMePlugin implements IPlugin {
     console.log('Inside init');
     this.pluginStore = pluginStore;
   }
+
+  getReactComponent(): React.Component {
+    return <h1>asdjkdas</h1>;
+  }
+
   activate() {
     this.pluginStore.addFunction('sendAlert', () => {
       alert('Testing');
@@ -17,7 +22,7 @@ class ClickMePlugin implements IPlugin {
     this.pluginStore.executeFunction(
       'RendererPlugin.add',
       'top',
-      <h1>asjdf</h1>
+      this.getReactComponent()
     );
   }
   deactivate() {
