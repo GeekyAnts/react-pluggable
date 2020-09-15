@@ -60,9 +60,6 @@ const pluginStore = createPluginStore();
 pluginStore.install('ClickMePlugin', new ClickMePlugin());
 
 const App = () => {
-  pluginStore.addFunction('test', (a, b) => {
-    console.log('working', a, b);
-  });
   return (
     <PluginProvider pluginStore={pluginStore}>
       <Test></Test>
@@ -84,7 +81,6 @@ import { usePluginStore } from 'react-pluggable';
 const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
 
-  pluginStore.executeFunction('test', 1, 2);
   return (
     <>
       <h1>Working</h1>{' '}
@@ -104,7 +100,7 @@ export default Test;
 
 ### Using the inbuilt renderer
 
-Sometimes a plugin has an UI component associated with it. You can implement this functionality by simply building a plugin of your own or using the default plugin provided by the package.
+Sometimes a plugin has a UI component associated with it. You can implement this functionality by simply building a plugin of your own or using the default plugin provided by the package.
 
 You can add the inbuilt renderer plugin by importing and installing `RendererPlugin` provided in the package.
 
