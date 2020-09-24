@@ -1,8 +1,11 @@
+import { EventCallableRegsitry } from './EventCallableRegsitry';
 import { IPlugin } from './interfaces/IPlugin';
+import { Event } from './Event';
 
 export class PluginStore {
   private functionArray: Map<string, any>;
   private pluginMap: Map<string, IPlugin>;
+  private _eventCallableRegistry: EventCallableRegsitry = new EventCallableRegsitry();
 
   constructor() {
     this.functionArray = new Map<string, any>();
@@ -27,7 +30,7 @@ export class PluginStore {
     console.error('No function added for the key ' + key + '.');
   }
 
-  removeFunction(key: string): any {
+  removeFunction(key: string): void {
     this.functionArray.delete(key);
   }
 
@@ -38,5 +41,15 @@ export class PluginStore {
       plugin.deactivate();
       this.pluginMap.delete(key);
     }
+  }
+
+  addEventListener(name: string, callback: (event: Event) => void) {
+    this._eventCallableRegistry.addEventListener(name, callback);
+  }
+  removeEventListener(name: string, callback: (event: Event) => void) {
+    this._eventCallableRegistry.removeEventListener(name, callback);
+  }
+  dispatchEvent(event: Event) {
+    this._eventCallableRegistry.dispatchEvent(event);
   }
 }

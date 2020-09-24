@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { usePluginStore } from '../../.';
+import { usePluginStore } from '../../src';
 
 const Test = (props: any) => {
   const pluginStore: any = usePluginStore();

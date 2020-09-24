@@ -1,9 +1,9 @@
 // @ts-ignore
 import React from 'react';
-import { IPlugin } from '../../.';
+import { IPlugin, PluginStore, Event } from '../../src';
 
 class ClickMePlugin implements IPlugin {
-  public pluginStore;
+  public pluginStore: PluginStore;
 
   init(pluginStore) {
     this.pluginStore = pluginStore;
@@ -15,7 +15,16 @@ class ClickMePlugin implements IPlugin {
     });
 
     this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
-      <h1>asdjkdas</h1>
+      <>
+        <h1>asdjkdas</h1>
+        <button
+          onClick={() =>
+            this.pluginStore.dispatchEvent(new Event('ClickMePlugin.hello'))
+          }
+        >
+          Dispatch event
+        </button>
+      </>
     ));
   }
   deactivate() {
