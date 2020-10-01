@@ -1,6 +1,7 @@
+import { Event } from './Event';
 import { EventCallableRegsitry } from './EventCallableRegsitry';
 import { IPlugin } from './interfaces/IPlugin';
-import { Event } from './Event';
+import dependencyValid from './utils/dependencyValid';
 
 export class PluginStore {
   private functionArray: Map<string, any>;
@@ -12,10 +13,49 @@ export class PluginStore {
     this.pluginMap = new Map<string, IPlugin>();
   }
 
-  install(key: string, plugin: IPlugin) {
-    this.pluginMap.set(key, plugin);
-    plugin.init(this);
-    plugin.activate();
+  install(plugin: IPlugin) {
+    const pluginNameAndVer = plugin.getPluginName();
+    const [pluginName] = pluginNameAndVer.split('@');
+    const pluginDependencies = plugin.getDependencies() || [];
+
+    let installationErrors: string[] = [];
+    pluginDependencies.forEach((dep: string) => {
+      const [depName, depVersion] = dep.split('@');
+      const installedNameAndVer = this.getInstalledPluginNameWithVersion(
+        depName
+      );
+      const [installedName, installedVersion] = installedNameAndVer
+        ? installedNameAndVer.split('@')
+        : [null, ''];
+      if (!installedNameAndVer) {
+        installationErrors.push(
+          `Error installing ${pluginNameAndVer}. Could not find dependency ${dep}.`
+        );
+      } else if (!dependencyValid(installedVersion, depVersion)) {
+        installationErrors.push(
+          `Error installing ${pluginNameAndVer}.\n${installedNameAndVer} doesn't satisfy the required dependency ${dep}.`
+        );
+      }
+    });
+
+    if (installationErrors.length === 0) {
+      this.pluginMap.set(pluginName, plugin);
+      plugin.init(this);
+      plugin.activate();
+    } else {
+      installationErrors.forEach(err => {
+        console.error(err);
+      });
+    }
+  }
+
+  getInstalledPluginNameWithVersion(name: string) {
+    const plugin = this.pluginMap.get(name);
+    if (!plugin) {
+      return null;
+    }
+
+    return plugin.getPluginName();
   }
 
   addFunction(key: string, fn: any) {

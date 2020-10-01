@@ -5,6 +5,13 @@ import { IPlugin, PluginStore, Event } from '../../src';
 class ClickMePlugin implements IPlugin {
   public pluginStore: PluginStore;
 
+  getPluginName() {
+    return 'ClickMePlugin@1.0.0';
+  }
+  getDependencies() {
+    return ['Plugin1@2.3.0'];
+  }
+
   init(pluginStore) {
     this.pluginStore = pluginStore;
   }

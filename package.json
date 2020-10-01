@@ -37,6 +37,7 @@
   "devDependencies": {
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@types/semver": "^7.3.4",
     "husky": "^4.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -51,5 +52,8 @@
     "plugin",
     "plugin-ecosystem",
     "react-ecosystem"
-  ]
+  ],
+  "dependencies": {
+    "semver": "^7.3.2"
+  }
 }

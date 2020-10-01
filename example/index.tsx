@@ -4,10 +4,16 @@ import * as ReactDOM from 'react-dom';
 import { createPluginStore, PluginProvider, RendererPlugin } from '../src';
 import ClickMePlugin from './Plugins/ClickMePlugin';
 import Test from './components/Test';
+import Plugin1 from './Plugins/Plugin1-v2.4.0';
+import Plugin2 from './Plugins/Plugin2-v3.1.0';
+import Plugin3 from './Plugins/Plugin3-v1.9.1';
 
 const pluginStore = createPluginStore();
-pluginStore.install('RendererPlugin', new RendererPlugin());
-pluginStore.install('ClickMePlugin', new ClickMePlugin());
+pluginStore.install(new RendererPlugin());
+pluginStore.install(new Plugin3());
+pluginStore.install(new Plugin2());
+pluginStore.install(new Plugin1());
+pluginStore.install(new ClickMePlugin());
 
 pluginStore.addEventListener('ClickMePlugin.hello', event => {
   console.log('Event received: ', event);

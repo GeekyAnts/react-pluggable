@@ -6,6 +6,13 @@ export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
   private componentMap: Map<string, Array<any>> = new Map<string, Array<any>>();
 
+  getPluginName() {
+    return 'RendererPlugin@1.0.0';
+  }
+  getDependencies() {
+    return [];
+  }
+
   init(pluginStore: PluginStore) {
     this.pluginStore = pluginStore;
   }
