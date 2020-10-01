@@ -6,7 +6,7 @@ class ClickMePlugin implements IPlugin {
   public pluginStore: PluginStore;
 
   getPluginName() {
-    return 'ClickMePlugin@1.0.0';
+    return 'ClickMe@1.0.0';
   }
   getDependencies() {
     return ['Plugin1@2.3.0'];
@@ -33,6 +33,21 @@ class ClickMePlugin implements IPlugin {
         </button>
       </>
     ));
+
+    setTimeout(() => {
+      this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+        <>
+          <h1>Async text</h1>
+          <button
+            onClick={() =>
+              this.pluginStore.dispatchEvent(new Event('ClickMePlugin.hello'))
+            }
+          >
+            Async button
+          </button>
+        </>
+      ));
+    }, 5000);
   }
   deactivate() {
     this.pluginStore.removeFunction('sendAlert');

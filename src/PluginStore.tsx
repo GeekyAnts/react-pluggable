@@ -83,13 +83,20 @@ export class PluginStore {
     }
   }
 
-  addEventListener(name: string, callback: (event: Event) => void) {
+  addEventListener<EventType = Event>(
+    name: string,
+    callback: (event: EventType) => void
+  ) {
     this._eventCallableRegistry.addEventListener(name, callback);
   }
-  removeEventListener(name: string, callback: (event: Event) => void) {
+  removeEventListener<EventType = Event>(
+    name: string,
+    callback: (event: EventType) => void
+  ) {
     this._eventCallableRegistry.removeEventListener(name, callback);
   }
-  dispatchEvent(event: Event) {
+  dispatchEvent<EventType = Event>(event: EventType) {
+    // @ts-ignore
     this._eventCallableRegistry.dispatchEvent(event);
   }
 }

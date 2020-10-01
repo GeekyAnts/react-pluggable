@@ -1,13 +1,14 @@
 import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
+import ComponentAddedEvent from './events/ComponentAddedEvent';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
   private componentMap: Map<string, Array<any>> = new Map<string, Array<any>>();
 
   getPluginName() {
-    return 'RendererPlugin@1.0.0';
+    return 'Renderer@1.0.0';
   }
   getDependencies() {
     return [];
@@ -21,8 +22,13 @@ export class RendererPlugin implements IPlugin {
     let array = this.componentMap.get(position);
     if (!array) {
       array = [component];
+    } else {
+      array.push(component);
     }
     this.componentMap.set(position, array);
+    this.pluginStore.dispatchEvent(
+      new ComponentAddedEvent('Renderer.componentAdded', position)
+    );
   }
 
   getRendererComponent() {
