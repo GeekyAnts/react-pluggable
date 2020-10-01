@@ -23,7 +23,7 @@ export const Renderer: React.SFC<{
   }, [pluginStore]);
 
   let components = pluginStore.executeFunction(
-    'RendererPlugin.getComponentsInPosition',
+    'Renderer.getComponentsInPosition',
     placement
   );
 

@@ -44,26 +44,26 @@ export class RendererPlugin implements IPlugin {
 
   activate() {
     this.pluginStore.addFunction(
-      'RendererPlugin.add',
+      'Renderer.add',
       this.addToComponentMap.bind(this)
     );
 
     this.pluginStore.addFunction(
-      'RendererPlugin.getComponentsInPosition',
+      'Renderer.getComponentsInPosition',
       this.getComponentsInPosition.bind(this)
     );
 
     this.pluginStore.addFunction(
-      'RendererPlugin.getRendererComponent',
+      'Renderer.getRendererComponent',
       this.getRendererComponent.bind(this)
     );
   }
 
   deactivate() {
-    this.pluginStore.removeFunction('RendererPlugin.add');
+    this.pluginStore.removeFunction('Renderer.add');
 
-    this.pluginStore.removeFunction('RendererPlugin.getComponentsInPosition');
+    this.pluginStore.removeFunction('Renderer.getComponentsInPosition');
 
-    this.pluginStore.removeFunction('RendererPlugin.getRendererComponent');
+    this.pluginStore.removeFunction('Renderer.getRendererComponent');
   }
 }

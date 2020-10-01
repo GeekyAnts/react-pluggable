@@ -2,11 +2,13 @@
 import React from 'react';
 import { IPlugin, PluginStore, Event } from '../../src';
 
+const namespace = 'ClickMe';
+
 class ClickMePlugin implements IPlugin {
   public pluginStore: PluginStore;
 
   getPluginName() {
-    return 'ClickMe@1.0.0';
+    return `${namespace}@1.0.0`;
   }
   getDependencies() {
     return ['Plugin1@2.3.0'];
@@ -17,16 +19,16 @@ class ClickMePlugin implements IPlugin {
   }
 
   activate() {
-    this.pluginStore.addFunction('sendAlert', () => {
-      alert('Testing');
+    this.pluginStore.addFunction(`${namespace}.sendAlert`, (msg: string) => {
+      alert(msg);
     });
 
-    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+    this.pluginStore.executeFunction('Renderer.add', 'top', () => (
       <>
         <h1>asdjkdas</h1>
         <button
           onClick={() =>
-            this.pluginStore.dispatchEvent(new Event('ClickMePlugin.hello'))
+            this.pluginStore.dispatchEvent(new Event(`${namespace}.hello`))
           }
         >
           Dispatch event
@@ -35,12 +37,12 @@ class ClickMePlugin implements IPlugin {
     ));
 
     setTimeout(() => {
-      this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+      this.pluginStore.executeFunction('Renderer.add', 'top', () => (
         <>
           <h1>Async text</h1>
           <button
             onClick={() =>
-              this.pluginStore.dispatchEvent(new Event('ClickMePlugin.hello'))
+              this.pluginStore.dispatchEvent(new Event(`${namespace}.hello`))
             }
           >
             Async button
@@ -50,8 +52,15 @@ class ClickMePlugin implements IPlugin {
     }, 5000);
   }
   deactivate() {
-    this.pluginStore.removeFunction('sendAlert');
+    this.pluginStore.removeFunction('ClickMe.sendAlert');
   }
 }
 
 export default ClickMePlugin;
+
+type PluginStoreClickMe = {
+  executeFunction(functionName: `ClickMe.add`, msg: string): void;
+  executeFunction(functionName: 'ClickMe.remove', msg: string): void;
+};
+
+export { PluginStoreClickMe };

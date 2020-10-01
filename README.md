@@ -32,7 +32,7 @@ class ClickMePlugin implements IPlugin {
       alert('Testing');
     });
 
-    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+    this.pluginStore.executeFunction('Renderer.add', 'top', () => (
       <h1>This is an element from the plugin</h1>
     ));
   }
@@ -127,9 +127,7 @@ const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
 
   pluginStore.executeFunction('test', 1, 2);
-  let Renderer = pluginStore.executeFunction(
-    'RendererPlugin.getRendererComponent'
-  );
+  let Renderer = pluginStore.executeFunction('Renderer.getRendererComponent');
   return (
     <>
       <Renderer placement={'top'} />

@@ -3,9 +3,7 @@ import { usePluginStore } from '../../src';
 
 const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
-  let Renderer = pluginStore.executeFunction(
-    'RendererPlugin.getRendererComponent'
-  );
+  let Renderer = pluginStore.executeFunction('Renderer.getRendererComponent');
   return (
     <>
       <h1>Working</h1>{' '}
