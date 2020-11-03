@@ -5,7 +5,7 @@ import ComponentAddedEvent from './events/ComponentAddedEvent';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
-  private componentMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  private componentMap = new Map<string, Array<React.Component>>();
 
   getPluginName() {
     return 'Renderer@1.0.0';
@@ -67,3 +67,10 @@ export class RendererPlugin implements IPlugin {
     this.pluginStore.removeFunction('Renderer.getRendererComponent');
   }
 }
+
+export type PluginStoreRenderer = {
+  executeFunction(
+    functionName: 'Renderer.getComponentsInPosition',
+    position: string
+  ): Array<React.Component>;
+};

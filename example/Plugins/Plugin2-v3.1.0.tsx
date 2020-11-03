@@ -1,4 +1,5 @@
 import { IPlugin, PluginStore, Event } from '../../src';
+import { PluginStoreWithPlugins } from '../types';
 
 export default class Plugin2 implements IPlugin {
   public pluginStore: PluginStore;
@@ -10,7 +11,7 @@ export default class Plugin2 implements IPlugin {
     return [];
   }
 
-  init(pluginStore) {
+  init(pluginStore: PluginStoreWithPlugins) {
     this.pluginStore = pluginStore;
   }
 

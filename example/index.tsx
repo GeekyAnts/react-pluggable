@@ -12,8 +12,9 @@ import Test from './components/Test';
 import Plugin1 from './Plugins/Plugin1-v2.4.0';
 import Plugin2 from './Plugins/Plugin2-v3.1.0';
 import Plugin3 from './Plugins/Plugin3-v1.9.1';
+import { PluginStoreWithPlugins } from './types';
 
-const pluginStore: PluginStore & PluginStoreClickMe = createPluginStore();
+const pluginStore: PluginStoreWithPlugins = createPluginStore();
 pluginStore.install(new RendererPlugin());
 pluginStore.install(new Plugin3());
 pluginStore.install(new Plugin2());
