@@ -31,6 +31,10 @@ export class RendererPlugin implements IPlugin {
     );
   }
 
+  removeFromComponentMap(position: string) {
+    this.componentMap.delete(position);
+  }
+
   getRendererComponent() {
     return Renderer;
   }
@@ -57,6 +61,11 @@ export class RendererPlugin implements IPlugin {
       'Renderer.getRendererComponent',
       this.getRendererComponent.bind(this)
     );
+
+    this.pluginStore.addFunction(
+      'Renderer.remove',
+      this.removeFromComponentMap.bind(this)
+    );
   }
 
   deactivate() {
@@ -65,6 +74,8 @@ export class RendererPlugin implements IPlugin {
     this.pluginStore.removeFunction('Renderer.getComponentsInPosition');
 
     this.pluginStore.removeFunction('Renderer.getRendererComponent');
+
+    this.pluginStore.removeFunction('Renderer.remove');
   }
 }
 
