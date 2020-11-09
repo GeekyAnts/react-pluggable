@@ -31,6 +31,13 @@ export class RendererPlugin implements IPlugin {
     );
   }
 
+  removeFromComponentMap(position: string, component: React.Component) {
+    let array = this.componentMap.get(position);
+    if (array) {
+      array.splice(array.indexOf(component), 1);
+    }
+  }
+
   getRendererComponent() {
     return Renderer;
   }
@@ -57,6 +64,11 @@ export class RendererPlugin implements IPlugin {
       'Renderer.getRendererComponent',
       this.getRendererComponent.bind(this)
     );
+
+    this.pluginStore.addFunction(
+      'Renderer.remove',
+      this.removeFromComponentMap.bind(this)
+    );
   }
 
   deactivate() {
@@ -65,6 +77,8 @@ export class RendererPlugin implements IPlugin {
     this.pluginStore.removeFunction('Renderer.getComponentsInPosition');
 
     this.pluginStore.removeFunction('Renderer.getRendererComponent');
+
+    this.pluginStore.removeFunction('Renderer.remove');
   }
 }
 
