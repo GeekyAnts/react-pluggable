@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useForceUpdate from '../../../hooks/useForceUpdate';
 import { usePluginStore } from '../../../hooks/usePluginStore';
-import ComponentAddedEvent from '../events/ComponentAddedEvent';
+import ComponentAddedEvent from '../events/ComponentUpdatedEvent';
 
 export const Renderer: React.SFC<{
   placement: string;
@@ -15,10 +15,13 @@ export const Renderer: React.SFC<{
         forceUpdate();
       }
     };
-    pluginStore.addEventListener('Renderer.componentAdded', eventListener);
+    pluginStore.addEventListener('Renderer.componentUpdated', eventListener);
 
     return () => {
-      pluginStore.removeEventListener('Renderer.componentAdded', eventListener);
+      pluginStore.removeEventListener(
+        'Renderer.componentUpdated',
+        eventListener
+      );
     };
   }, [pluginStore]);
 

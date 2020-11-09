@@ -1,7 +1,7 @@
 import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
-import ComponentAddedEvent from './events/ComponentAddedEvent';
+import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
@@ -27,15 +27,19 @@ export class RendererPlugin implements IPlugin {
     }
     this.componentMap.set(position, array);
     this.pluginStore.dispatchEvent(
-      new ComponentAddedEvent('Renderer.componentAdded', position)
+      new ComponentUpdatedEvent('Renderer.componentUpdated', position)
     );
   }
 
   removeFromComponentMap(position: string, component: React.Component) {
     let array = this.componentMap.get(position);
+    console.log(array);
     if (array) {
       array.splice(array.indexOf(component), 1);
     }
+    this.pluginStore.dispatchEvent(
+      new ComponentUpdatedEvent('Renderer.componentUpdated', position)
+    );
   }
 
   getRendererComponent() {
