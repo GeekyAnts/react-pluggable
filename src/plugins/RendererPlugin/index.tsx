@@ -34,8 +34,7 @@ export class RendererPlugin implements IPlugin {
   removeFromComponentMap(position: string, component: React.Component) {
     let array = this.componentMap.get(position);
     if (array) {
-      array = array.filter((component1) => component1 !== component);
-      this.componentMap.set(position, array);
+      array.splice(array.indexOf(component), 1);
     }
   }
 
