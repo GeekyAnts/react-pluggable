@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useForceUpdate from '../../../hooks/useForceUpdate';
 import { usePluginStore } from '../../../hooks/usePluginStore';
-import ComponentAddedEvent from '../events/ComponentUpdatedEvent';
+import ComponentUpdatedEvent from '../events/ComponentUpdatedEvent';
 
 export const Renderer: React.SFC<{
   placement: string;
@@ -10,7 +10,7 @@ export const Renderer: React.SFC<{
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    const eventListener = (event: ComponentAddedEvent) => {
+    const eventListener = (event: ComponentUpdatedEvent) => {
       if (event.position === placement) {
         forceUpdate();
       }
