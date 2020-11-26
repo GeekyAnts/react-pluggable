@@ -8,7 +8,7 @@ This gives us a few advantages:
 - A plugin can be added or removed by a single line (which is perfect for A/B testing)
 - Ships with dependency management: Plugins can depend on other plugins and communicate with each other
 
-You can find out more about it on their [official documentation](https://react-pluggable.github.io/). You can also checkout this [article](https://www.notion.so/geekyants/Launch-article-React-Pluggable-717e8c123297410fa73a17d8794ce78d) to get a quick idea about the concept.
+You can find out more about it on their [official documentation](https://react-pluggable.github.io/).
 
 ## Installation
 
