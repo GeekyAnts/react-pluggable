@@ -1,6 +1,14 @@
-# React-pluggable
+# <img width="25px" src="https://github.com/react-pluggable/react-pluggable.github.io/blob/development/img/ReactPluggableLogoBlack.png" alt="React-pluggable Logo"> React Pluggable
 
-React-pluggable is a library that helps you develop your react application on the plugin model.
+React-pluggable is a NPM library that helps you develop your react application in a **feature-oriented** manner. It is loosely based on the concept of Service Providers of Laravel and aims on achieving the concept of **Open-closed** principle. Everything is developed in the form of small sections called plugins which can be installed to the application and everything inside it just starts working.
+
+This gives us a few advantages:
+
+- Features can be developed & tested in isolation (features can have an interface, provide or consume data & functions, interact with external APIs and more)
+- A plugin can be added or removed by a single line (which is perfect for A/B testing)
+- Ships with dependency management: Plugins can depend on other plugins and communicate with each other
+
+You can find out more about it on their [official documentation](https://react-pluggable.github.io/). You can also checkout this [article](https://www.notion.so/geekyants/Launch-article-React-Pluggable-717e8c123297410fa73a17d8794ce78d) to get a quick idea about the concept.
 
 ## Installation
 
