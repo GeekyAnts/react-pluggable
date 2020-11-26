@@ -1,18 +1,39 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { createPluginStore, PluginProvider, RendererPlugin } from '../.';
-import ClickMePlugin from './Plugins/ClickMePlugin';
+import {
+  createPluginStore,
+  PluginProvider,
+  PluginStore,
+  RendererPlugin,
+} from '../src';
+import ClickMePlugin, { PluginStoreClickMe } from './Plugins/ClickMePlugin';
 import Test from './components/Test';
+import Plugin1 from './Plugins/Plugin1-v2.4.0';
+import Plugin2 from './Plugins/Plugin2-v3.1.0';
+import Plugin3 from './Plugins/Plugin3-v1.9.1';
+import { PluginStoreWithPlugins } from './types';
 
-const pluginStore = createPluginStore();
-pluginStore.install('RendererPlugin', new RendererPlugin());
-pluginStore.install('ClickMePlugin', new ClickMePlugin());
+const pluginStore: PluginStoreWithPlugins = createPluginStore();
+pluginStore.install(new RendererPlugin());
+pluginStore.install(new Plugin3());
+pluginStore.install(new Plugin2());
+pluginStore.install(new Plugin1());
+pluginStore.install(new ClickMePlugin());
+
+pluginStore.addEventListener('ClickMe.hello', (event) => {
+  console.log('Event received: ', event);
+  event.stopPropagation();
+});
+
+pluginStore.addEventListener('ClickMe.hello', (event) => {
+  console.log('Event received second time: ', event);
+});
 
 const App = () => {
   return (
     <PluginProvider pluginStore={pluginStore}>
-      <Test></Test>
+      <Test />
     </PluginProvider>
   );
 };

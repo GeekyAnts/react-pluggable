@@ -7,6 +7,8 @@ React-pluggable is a library that helps you develop your react application on th
 Use npm or yarn to install this to your application.
 
 ```bash
+npm install react-pluggable
+
 yarn add react-pluggable
 ```
 
@@ -14,86 +16,85 @@ yarn add react-pluggable
 
 ### Making a plugin
 
-##### ClickMePlugin.tsx
+##### ShowAlertPlugin.tsx
 
 ```tsx
 import React from 'react';
-import { IPlugin } from 'react-pluggable';
+import { IPlugin, PluginStore } from 'react-pluggable';
 
-class ClickMePlugin implements IPlugin {
-  public pluginStore;
+class ShowAlertPlugin implements IPlugin {
+  public pluginStore: any;
 
-  init(pluginStore) {
+  getPluginName(): string {
+    return 'ShowAlert';
+  }
+
+  getDependencies(): string[] {
+    return [];
+  }
+
+  init(pluginStore: PluginStore): void {
     this.pluginStore = pluginStore;
   }
 
-  activate() {
+  activate(): void {
     this.pluginStore.addFunction('sendAlert', () => {
-      alert('Testing');
+      alert('Hello from the ShowAlert Plugin');
     });
-
-    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
-      <h1>This is an element from the plugin</h1>
-    ));
   }
 
-  deactivate() {
-    //
+  deactivate(): void {
+    this.pluginStore.removeFunction('sendAlert');
   }
 }
 
-export default ClickMePlugin;
+export default ShowAlertPlugin;
 ```
 
 ### Adding it to your app
 
 ##### App.tsx
 
-```tsx
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+```jsx
+import React from 'react';
+import './App.css';
 import { createPluginStore, PluginProvider } from 'react-pluggable';
-import ClickMePlugin from './Plugins/ClickMePlugin';
+import ShowAlertPlugin from './plugins/ShowAlertPlugin';
 import Test from './components/Test';
 
 const pluginStore = createPluginStore();
-pluginStore.install('ClickMePlugin', new ClickMePlugin());
+pluginStore.install(new ShowAlertPlugin());
 
-const App = () => {
-  pluginStore.addFunction('test', (a, b) => {
-    console.log('working', a, b);
-  });
+function App() {
   return (
     <PluginProvider pluginStore={pluginStore}>
-      <Test></Test>
+      <Test />
     </PluginProvider>
   );
-};
+}
 
-ReactDOM.render(<App />, document.getElementById('root'));
+export default App;
 ```
 
 ### Using the plugin
 
 ##### Test.tsx
 
-```tsx
+```jsx
 import * as React from 'react';
 import { usePluginStore } from 'react-pluggable';
 
-const Test = (props: any) => {
-  const pluginStore: any = usePluginStore();
+const Test = () => {
+  const pluginStore = usePluginStore();
 
-  pluginStore.executeFunction('test', 1, 2);
   return (
     <>
-      <h1>Working</h1>{' '}
       <button
         onClick={() => {
           pluginStore.executeFunction('sendAlert');
         }}
       >
-        Send Alert
+        Show Alert
       </button>
     </>
   );
@@ -106,6 +107,41 @@ export default Test;
 
 Sometimes a plugin has an UI component associated with it. You can implement this functionality by simply building a plugin of your own or using the default plugin provided by the package.
 
+##### SharePlugin.tsx
+
+```tsx
+import React from 'react';
+import { IPlugin, PluginStore } from 'react-pluggable';
+
+class SharePlugin implements IPlugin {
+  public pluginStore: any;
+
+  getPluginName(): string {
+    return 'Share plugin';
+  }
+
+  getDependencies(): string[] {
+    return [];
+  }
+
+  init(pluginStore: PluginStore): void {
+    this.pluginStore = pluginStore;
+  }
+
+  activate(): void {
+    this.pluginStore.executeFunction('RendererPlugin.add', 'top', () => (
+      <button>Share</button>
+    ));
+  }
+
+  deactivate(): void {
+    //
+  }
+}
+
+export default SharePlugin;
+```
+
 You can add the inbuilt renderer plugin by importing and installing `RendererPlugin` provided in the package.
 
 #### Importing the plugin
@@ -115,6 +151,27 @@ You can add the inbuilt renderer plugin by importing and installing `RendererPlu
 ```tsx
 import * as React from 'react';
 import { usePluginStore } from 'react-pluggable';
+import {
+  createPluginStore,
+  PluginProvider,
+  RendererPlugin,
+} from 'react-pluggable';
+import SharePlugin from './plugins/SharePlugin';
+import Test from './components/Test';
+
+const pluginStore = createPluginStore();
+pluginStore.install(new RendererPlugin());
+pluginStore.install(new SharePlugin());
+
+function App() {
+  return (
+    <PluginProvider pluginStore={pluginStore}>
+      <Test />
+    </PluginProvider>
+  );
+}
+
+export default App;
 ```
 
 ##### Test.tsx
@@ -126,12 +183,13 @@ import { usePluginStore } from 'react-pluggable';
 const Test = (props: any) => {
   const pluginStore: any = usePluginStore();
 
-  pluginStore.executeFunction('test', 1, 2);
   let Renderer = pluginStore.executeFunction(
     'RendererPlugin.getRendererComponent'
   );
+
   return (
     <>
+      <h1>I am header</h1>
       <Renderer placement={'top'} />
     </>
   );
