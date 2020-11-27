@@ -1,10 +1,18 @@
 import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
+import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
-  private componentMap: Map<string, Array<any>> = new Map<string, Array<any>>();
+  private componentMap = new Map<string, Array<React.Component>>();
+
+  getPluginName() {
+    return 'Renderer@1.0.0';
+  }
+  getDependencies() {
+    return [];
+  }
 
   init(pluginStore: PluginStore) {
     this.pluginStore = pluginStore;
@@ -14,8 +22,23 @@ export class RendererPlugin implements IPlugin {
     let array = this.componentMap.get(position);
     if (!array) {
       array = [component];
+    } else {
+      array.push(component);
     }
     this.componentMap.set(position, array);
+    this.pluginStore.dispatchEvent(
+      new ComponentUpdatedEvent('Renderer.componentUpdated', position)
+    );
+  }
+
+  removeFromComponentMap(position: string, component: React.Component) {
+    let array = this.componentMap.get(position);
+    if (array) {
+      array.splice(array.indexOf(component), 1);
+    }
+    this.pluginStore.dispatchEvent(
+      new ComponentUpdatedEvent('Renderer.componentUpdated', position)
+    );
   }
 
   getRendererComponent() {
@@ -31,26 +54,40 @@ export class RendererPlugin implements IPlugin {
 
   activate() {
     this.pluginStore.addFunction(
-      'RendererPlugin.add',
+      'Renderer.add',
       this.addToComponentMap.bind(this)
     );
 
     this.pluginStore.addFunction(
-      'RendererPlugin.getComponentsInPosition',
+      'Renderer.getComponentsInPosition',
       this.getComponentsInPosition.bind(this)
     );
 
     this.pluginStore.addFunction(
-      'RendererPlugin.getRendererComponent',
+      'Renderer.getRendererComponent',
       this.getRendererComponent.bind(this)
+    );
+
+    this.pluginStore.addFunction(
+      'Renderer.remove',
+      this.removeFromComponentMap.bind(this)
     );
   }
 
   deactivate() {
-    this.pluginStore.removeFunction('RendererPlugin.add');
+    this.pluginStore.removeFunction('Renderer.add');
 
-    this.pluginStore.removeFunction('RendererPlugin.getComponentsInPosition');
+    this.pluginStore.removeFunction('Renderer.getComponentsInPosition');
 
-    this.pluginStore.removeFunction('RendererPlugin.getRendererComponent');
+    this.pluginStore.removeFunction('Renderer.getRendererComponent');
+
+    this.pluginStore.removeFunction('Renderer.remove');
   }
 }
+
+export type PluginStoreRenderer = {
+  executeFunction(
+    functionName: 'Renderer.getComponentsInPosition',
+    position: string
+  ): Array<React.Component>;
+};
