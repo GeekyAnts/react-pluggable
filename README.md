@@ -73,7 +73,7 @@ import Test from './components/Test';
 const pluginStore = createPluginStore();
 pluginStore.install(new ShowAlertPlugin());
 
-function App() {
+const App = () => {
   return (
     <PluginProvider pluginStore={pluginStore}>
       <Test />
@@ -113,7 +113,7 @@ export default Test;
 
 ### Using the inbuilt renderer
 
-Sometimes a plugin has an UI component associated with it. You can implement this functionality by simply building a plugin of your own or using the default plugin provided by the package.
+Sometimes a plugin has a UI component associated with it. You can implement this functionality by simply building a plugin of your own or using the default plugin provided by the package.
 
 ##### SharePlugin.tsx
 
