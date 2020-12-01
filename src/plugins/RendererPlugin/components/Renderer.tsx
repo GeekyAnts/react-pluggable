@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+// @ts-ignore
+import uuid from 'react-uuid';
 import useForceUpdate from '../../../hooks/useForceUpdate';
 import { usePluginStore } from '../../../hooks/usePluginStore';
 import ComponentUpdatedEvent from '../events/ComponentUpdatedEvent';
@@ -32,8 +34,8 @@ export const Renderer: React.SFC<{
 
   return (
     <>
-      {components.map((Component: any, index: number) => (
-        <Component key={index} />
+      {components.map((Component: any) => (
+        <Component key={uuid()} />
       ))}
     </>
   );
