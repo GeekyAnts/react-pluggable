@@ -2,7 +2,7 @@
 
 React Pluggable: A plugin system for JS & React apps
 
-While React itself is a plugin system in a way, it focuses on the abstraction of the UI. It is inherently declarative which makes it intuitive for developers when building UI but it also makes extensibility hard. With the help of React Pluggable, we can think of our app as a set of features instead of a set of components. It provides a mixed approach to solve this problem. We at [GeekyAnts](https://geekyants.com/) have used React Pluggable for large & complex apps like [BuilderX](https://builderx.io/) to add independent and dependent features over time, and it has worked wonderfully for us.
+While React itself is a plugin system in a way, it focuses on the abstraction of the UI. It is inherently declarative which makes it intuitive for developers when building UI. With the help of React Pluggable, we can think of our app as a set of features instead of a set of components. It provides a mixed approach to solve this problem. We at [GeekyAnts](https://geekyants.com/) have used React Pluggable for large & complex apps like [BuilderX](https://builderx.io/) to add independent and dependent features over time, and it has worked wonderfully for us.
 
 This gives us a few advantages:
 
