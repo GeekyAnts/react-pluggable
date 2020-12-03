@@ -2,10 +2,14 @@ import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
 import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
+import uuid from 'react-uuid';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
-  private componentMap = new Map<string, Array<React.Component>>();
+  private componentMap = new Map<
+    string,
+    Array<{ component: React.Component; key?: string }>
+  >();
 
   getPluginName() {
     return 'Renderer@1.0.0';
@@ -18,12 +22,17 @@ export class RendererPlugin implements IPlugin {
     this.pluginStore = pluginStore;
   }
 
-  addToComponentMap(position: string, component: React.Component) {
+  addToComponentMap(
+    position: string,
+    component: React.Component,
+    key?: string
+  ) {
     let array = this.componentMap.get(position);
+    let componentKey = key ? key : uuid();
     if (!array) {
-      array = [component];
+      array = [{ component, key: componentKey }];
     } else {
-      array.push(component);
+      array.push({ component, key: componentKey });
     }
     this.componentMap.set(position, array);
     this.pluginStore.dispatchEvent(
