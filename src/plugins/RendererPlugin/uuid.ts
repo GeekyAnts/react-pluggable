@@ -1,2 +1,2 @@
-var uuid = require('react-uuid');
+let uuid = require('react-uuid');
 export default uuid;

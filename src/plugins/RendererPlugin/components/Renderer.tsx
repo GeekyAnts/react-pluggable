@@ -25,16 +25,27 @@ export const Renderer: React.SFC<{
     };
   }, [pluginStore, placement, forceUpdate]);
 
-  let components = pluginStore.executeFunction(
+  let componentsDataArray = pluginStore.executeFunction(
     'Renderer.getComponentsInPosition',
     placement
   );
 
   return (
     <>
-      {components.map((compObject: any) => (
-        <compObject.component key={compObject.key} />
-      ))}
+      {/* {componentsDataArray.map((componentObject: any) => (
+        <componentObject.component key={componentObject.key} />
+      ))} */}
+      {componentsDataArray.map(
+        ({
+          Component,
+          key,
+        }: {
+          Component: React.ComponentClass;
+          key: string;
+        }) => (
+          <>{Component()}</>
+        )
+      )}
     </>
   );
 };
