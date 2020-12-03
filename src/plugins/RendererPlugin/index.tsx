@@ -2,7 +2,7 @@ import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
 import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
-import uuid from 'react-uuid';
+import uuid from './uuid';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
@@ -40,10 +40,17 @@ export class RendererPlugin implements IPlugin {
     );
   }
 
-  removeFromComponentMap(position: string, component: React.Component) {
+  removeFromComponentMap(
+    position: string,
+    component: React.Component,
+    key?: String
+  ) {
     let array = this.componentMap.get(position);
     if (array) {
-      array.splice(array.indexOf(component), 1);
+      array.splice(
+        array.findIndex(item => item.component === component),
+        1
+      );
     }
     this.pluginStore.dispatchEvent(
       new ComponentUpdatedEvent('Renderer.componentUpdated', position)

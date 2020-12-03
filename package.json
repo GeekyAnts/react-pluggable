@@ -54,6 +54,7 @@
     "react-ecosystem"
   ],
   "dependencies": {
+    "react-uuid": "^1.0.2",
     "semver": "^7.3.2"
   }
 }
