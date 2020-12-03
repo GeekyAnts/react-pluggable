@@ -9,7 +9,7 @@ export class RendererPlugin implements IPlugin {
   private componentMap = new Map<
     string,
     Array<{
-      component: React.ComponentClass<{ key: string }, any>;
+      component: React.ComponentClass;
       key?: string;
     }>
   >();
