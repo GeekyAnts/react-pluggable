@@ -8,7 +8,10 @@ export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
   private componentMap = new Map<
     string,
-    Array<{ component: React.Component; key?: string }>
+    Array<{
+      component: React.ComponentClass<{ key: string }, any>;
+      key?: string;
+    }>
   >();
 
   getPluginName() {
@@ -24,7 +27,7 @@ export class RendererPlugin implements IPlugin {
 
   addToComponentMap(
     position: string,
-    component: React.Component,
+    component: React.ComponentClass,
     key?: string
   ) {
     let array = this.componentMap.get(position);
@@ -40,22 +43,13 @@ export class RendererPlugin implements IPlugin {
     );
   }
 
-  removeFromComponentMap(
-    position: string,
-    component: React.Component,
-    key?: String
-  ) {
+  removeFromComponentMap(position: string, component: React.ComponentClass) {
     let array = this.componentMap.get(position);
     if (array) {
-      key
-        ? array.splice(
-            array.findIndex(item => item.key === key),
-            1
-          )
-        : array.splice(
-            array.findIndex(item => item.component === component),
-            1
-          );
+      array.splice(
+        array.findIndex(item => item.component === component),
+        1
+      );
     }
     this.pluginStore.dispatchEvent(
       new ComponentUpdatedEvent('Renderer.componentUpdated', position)
