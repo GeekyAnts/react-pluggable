@@ -47,10 +47,15 @@ export class RendererPlugin implements IPlugin {
   ) {
     let array = this.componentMap.get(position);
     if (array) {
-      array.splice(
-        array.findIndex(item => item.component === component),
-        1
-      );
+      key
+        ? array.splice(
+            array.findIndex(item => item.key === key),
+            1
+          )
+        : array.splice(
+            array.findIndex(item => item.component === component),
+            1
+          );
     }
     this.pluginStore.dispatchEvent(
       new ComponentUpdatedEvent('Renderer.componentUpdated', position)
