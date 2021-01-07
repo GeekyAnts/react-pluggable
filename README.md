@@ -343,21 +343,10 @@ export default AuthPlugin;
 
 ### 9) Contributors
 
-- [Aditya Jamuar](https://github.com/Ajamuar)
-
-  [https://avatars3.githubusercontent.com/u/48080578?s=64&v=4](https://avatars3.githubusercontent.com/u/48080578?s=64&v=4)
-
-- [Himanshu Satija](https://github.com/himanshu-satija)
-
-  [https://avatars2.githubusercontent.com/u/15103616?s=64&v=4](https://avatars2.githubusercontent.com/u/15103616?s=64&v=4)
-
-- [Amar Somani](https://github.com/amars29)
-
-  [https://avatars2.githubusercontent.com/u/73688673?s=64&v=4](https://avatars2.githubusercontent.com/u/73688673?s=64&v=4)
-
-- [Sanket Sahu](https://github.com/sanketsahu)
-
-  [https://avatars0.githubusercontent.com/u/1733433?s=64&v=4](https://avatars0.githubusercontent.com/u/1733433?s=64&v=4)
+- [Aditya Jamuar](https://twitter.com/GeekJamuar)
+- [Himanshu Satija](https://twitter.com/HimanshuSatija_)
+- [Sanket Sahu](https://twitter.com/sanketsahu)
+- [Amar Somani](https://twitter.com/amar_somani)
 
 ### 10) How to Contribute
 
