@@ -23,7 +23,7 @@ export const Renderer: React.SFC<{
         eventListener
       );
     };
-  }, [pluginStore]);
+  }, [pluginStore, placement, forceUpdate]);
 
   let components = pluginStore.executeFunction(
     'Renderer.getComponentsInPosition',
@@ -32,9 +32,11 @@ export const Renderer: React.SFC<{
 
   return (
     <>
-      {components.map((Component: any) => (
-        <Component />
-      ))}
+      {components.map(
+        (compObject: { component: React.ComponentClass; key: string }) => (
+          <compObject.component key={compObject.key} />
+        )
+      )}
     </>
   );
 };

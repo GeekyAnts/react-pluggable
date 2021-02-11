@@ -24,7 +24,7 @@ export class PluginStore {
       const installedNameAndVer = this.getInstalledPluginNameWithVersion(
         depName
       );
-      const [installedName, installedVersion] = installedNameAndVer
+      const [, installedVersion] = installedNameAndVer
         ? installedNameAndVer.split('@')
         : [null, ''];
       if (!installedNameAndVer) {

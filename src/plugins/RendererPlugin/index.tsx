@@ -2,10 +2,17 @@ import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
 import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
+import randomString from './randomString';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
-  private componentMap = new Map<string, Array<React.Component>>();
+  private componentMap = new Map<
+    string,
+    Array<{
+      component: React.ComponentClass;
+      key?: string;
+    }>
+  >();
 
   getPluginName() {
     return 'Renderer@1.0.0';
@@ -18,12 +25,17 @@ export class RendererPlugin implements IPlugin {
     this.pluginStore = pluginStore;
   }
 
-  addToComponentMap(position: string, component: React.Component) {
+  addToComponentMap(
+    position: string,
+    component: React.ComponentClass,
+    key?: string
+  ) {
     let array = this.componentMap.get(position);
+    let componentKey = key ? key : randomString(8);
     if (!array) {
-      array = [component];
+      array = [{ component, key: componentKey }];
     } else {
-      array.push(component);
+      array.push({ component, key: componentKey });
     }
     this.componentMap.set(position, array);
     this.pluginStore.dispatchEvent(
@@ -31,10 +43,13 @@ export class RendererPlugin implements IPlugin {
     );
   }
 
-  removeFromComponentMap(position: string, component: React.Component) {
+  removeFromComponentMap(position: string, component: React.ComponentClass) {
     let array = this.componentMap.get(position);
     if (array) {
-      array.splice(array.indexOf(component), 1);
+      array.splice(
+        array.findIndex(item => item.component === component),
+        1
+      );
     }
     this.pluginStore.dispatchEvent(
       new ComponentUpdatedEvent('Renderer.componentUpdated', position)

@@ -21,12 +21,12 @@ pluginStore.install(new Plugin2());
 pluginStore.install(new Plugin1());
 pluginStore.install(new ClickMePlugin());
 
-pluginStore.addEventListener('ClickMe.hello', (event) => {
+pluginStore.addEventListener('ClickMe.hello', event => {
   console.log('Event received: ', event);
   event.stopPropagation();
 });
 
-pluginStore.addEventListener('ClickMe.hello', (event) => {
+pluginStore.addEventListener('ClickMe.hello', event => {
   console.log('Event received second time: ', event);
 });
 
