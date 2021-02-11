@@ -2,7 +2,7 @@ import { IPlugin } from '../../interfaces/IPlugin';
 import { PluginStore } from '../../PluginStore';
 import { Renderer } from './components/Renderer';
 import ComponentUpdatedEvent from './events/ComponentUpdatedEvent';
-import uuid from './uuid';
+import randomString from './randomString';
 
 export class RendererPlugin implements IPlugin {
   public pluginStore: PluginStore = new PluginStore();
@@ -31,7 +31,7 @@ export class RendererPlugin implements IPlugin {
     key?: string
   ) {
     let array = this.componentMap.get(position);
-    let componentKey = key ? key : uuid();
+    let componentKey = key ? key : randomString(8);
     if (!array) {
       array = [{ component, key: componentKey }];
     } else {
