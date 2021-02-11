@@ -44,7 +44,7 @@ yarn test
 
 ### Docs
 
-Improvements to the documentation are always welcome. You can find them in the on [`syncstate.github.io`](https://github.com/react-pluggable/react-pluggable.github.io) repository. We use [Docusaurus](https://docusaurus.io/) to build our documentation website. The website is published automatically whenever the `master` branch is updated.
+Improvements to the documentation are always welcome. You can find them in the on [`react-pluggable.github.io`](https://github.com/react-pluggable/react-pluggable.github.io) repository. We use [Docusaurus](https://docusaurus.io/) to build our documentation website. The website is published automatically whenever the `master` branch is updated.
 
 ### Examples
 
