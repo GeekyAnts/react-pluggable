@@ -20,6 +20,15 @@ React Pluggable simplifies the problem in 3 simple steps:
 2. You can use that feature anywhere in the app by calling that feature using PluginStore rather than importing that feature directly.
 3. If you do not want a particular plugin in your app, you can uninstall it from your plugin store or just comment out the installation.
 
+
+## About
+
+   A plugin system for React applications by [GeekyAnts](https://geekyants.com?utm_source=github&utm_medium=opensource&utm_campaign=react-pluggable).
+
+   We offer [web engineering](https://geekyants.com/service/hire-web-app-development-services?utm_source=github&utm_medium=opensource&utm_campaign=react-pluggable)
+   and [full stack development](https://geekyants.com/service/full-stack-app-development-services?utm_source=github&utm_medium=opensource&utm_campaign=react-pluggable)
+   services. [Get in touch](https://geekyants.com/hire?utm_source=github&utm_medium=opensource&utm_campaign=react-pluggable).
+
 ### 3) Features
 
 - **Open-closed Principle**
